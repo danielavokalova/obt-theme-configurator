@@ -60,17 +60,18 @@
       { key: 'menu', label: 'Menu / navigace', hint: 'Pozadí hlavičky a horní lišty odkazů' },
       { key: 'searchForm', label: 'Search formulář — okraje', hint: 'Neaktivní záložky a spodní lišta (filtry, SEARCH)' },
       { key: 'searchFormBody', label: 'Tělo search formuláře', hint: 'Střední část s poli From, To, Options, datumy' },
-      { key: 'accent', label: 'Ikony a zvýraznění', hint: 'Logo, tlačítka, aktivní záložka, odkazy' },
+      { key: 'searchFormLine', label: 'Čára ve formuláři', hint: 'Oddělovač těla a spodní lišty, horní okraj aktivní záložky' },
+      { key: 'accent', label: 'Ikony a zvýraznění', hint: 'Logo, tlačítka, odkazy' },
       { key: 'text', label: 'Barva písma', hint: 'Nadpisy, popisky polí, hodnoty' },
     ];
 
     const PRESETS = [
-      { id: 'gol-orange', name: 'GOL Orange', colors: { pageBg: '#E8ECF1', menu: '#FFFFFF', searchForm: '#EBF8FF', searchFormBody: '#FFFFFF', accent: '#E25813', text: '#1A365D' } },
-      { id: 'ocean-breeze', name: 'Ocean Breeze', colors: { pageBg: '#E0F2FE', menu: '#FFFFFF', searchForm: '#F0FDFA', searchFormBody: '#FFFFFF', accent: '#0D9488', text: '#0C4A6E' } },
-      { id: 'corporate-navy', name: 'Corporate Navy', colors: { pageBg: '#E2E8F0', menu: '#FFFFFF', searchForm: '#F1F5F9', searchFormBody: '#FFFFFF', accent: '#2563EB', text: '#1E293B' } },
-      { id: 'sunset-magenta', name: 'Sunset Magenta', colors: { pageBg: '#FAE8FF', menu: '#FFFFFF', searchForm: '#E9D5FF', searchFormBody: '#FFFFFF', accent: '#DB2777', text: '#581C87' } },
-      { id: 'eco-travel', name: 'Eco Travel', colors: { pageBg: '#ECFCCB', menu: '#FFFFFF', searchForm: '#F7FEE7', searchFormBody: '#FFFFFF', accent: '#65A30D', text: '#365314' } },
-      { id: 'luxury-gold', name: 'Luxury Gold', colors: { pageBg: '#E5E5E5', menu: '#FFFFFF', searchForm: '#FAFAFA', searchFormBody: '#FFFFFF', accent: '#CA8A04', text: '#171717' } },
+      { id: 'gol-orange', name: 'GOL Orange', colors: { pageBg: '#E8ECF1', menu: '#FFFFFF', searchForm: '#EBF8FF', searchFormBody: '#FFFFFF', searchFormLine: '#E25813', accent: '#E25813', text: '#1A365D' } },
+      { id: 'ocean-breeze', name: 'Ocean Breeze', colors: { pageBg: '#E0F2FE', menu: '#FFFFFF', searchForm: '#F0FDFA', searchFormBody: '#FFFFFF', searchFormLine: '#0D9488', accent: '#0D9488', text: '#0C4A6E' } },
+      { id: 'corporate-navy', name: 'Corporate Navy', colors: { pageBg: '#E2E8F0', menu: '#FFFFFF', searchForm: '#F1F5F9', searchFormBody: '#FFFFFF', searchFormLine: '#2563EB', accent: '#2563EB', text: '#1E293B' } },
+      { id: 'sunset-magenta', name: 'Sunset Magenta', colors: { pageBg: '#FAE8FF', menu: '#FFFFFF', searchForm: '#E9D5FF', searchFormBody: '#FFFFFF', searchFormLine: '#DB2777', accent: '#DB2777', text: '#581C87' } },
+      { id: 'eco-travel', name: 'Eco Travel', colors: { pageBg: '#ECFCCB', menu: '#FFFFFF', searchForm: '#F7FEE7', searchFormBody: '#FFFFFF', searchFormLine: '#65A30D', accent: '#65A30D', text: '#365314' } },
+      { id: 'luxury-gold', name: 'Luxury Gold', colors: { pageBg: '#E5E5E5', menu: '#FFFFFF', searchForm: '#FAFAFA', searchFormBody: '#FFFFFF', searchFormLine: '#CA8A04', accent: '#CA8A04', text: '#171717' } },
     ];
 
     const BACKGROUNDS = [
@@ -194,7 +195,7 @@
                         style={{
                           backgroundColor: active ? colors.searchFormBody : colors.searchForm,
                           color: colors.text,
-                          borderTop: active ? `3px solid ${colors.accent}` : '3px solid transparent',
+                          borderTop: active ? `3px solid ${colors.searchFormLine}` : '3px solid transparent',
                         }}>
                         {tab==='Return' && <IconPlane color={colors.text} className="w-4 h-4" />}
                         {tab}
@@ -241,9 +242,13 @@
                 </div>
               </Zone>
 
+              <Zone id="searchFormLine" activeKey={activeKey} onSelect={onSelectZone}
+                className="h-1 w-full shrink-0"
+                style={{backgroundColor:colors.searchFormLine}} title="Čára ve formuláři (oddělovač)" />
+
               {/* Bottom action bar */}
               <Zone id="searchForm" activeKey={activeKey} onSelect={onSelectZone}
-                className="flex flex-wrap items-center gap-3 border-t border-slate-200/60 px-4 py-3 sm:px-5"
+                className="flex flex-wrap items-center gap-3 px-4 py-3 sm:px-5"
                 style={{backgroundColor:colors.searchForm}} title="Search formulář — okraje (spodní lišta)">
                 <label className="flex items-center gap-2 text-xs font-medium" style={{color:colors.text}}>
                   <input type="checkbox" className="h-4 w-4 rounded border-2" style={{accentColor:colors.accent,borderColor:colors.accent}} />
@@ -308,7 +313,7 @@
 
     function App() {
       const def = PRESETS.find(p=>p.id==='gol-orange');
-      const [colors,setColors]=useState({searchFormBody:'#FFFFFF',...def.colors});
+      const [colors,setColors]=useState({searchFormBody:'#FFFFFF',searchFormLine:def.colors.searchFormLine??def.colors.accent,...def.colors});
       const [presetId,setPresetId]=useState('gol-orange');
       const [customized,setCustomized]=useState(false);
       const [backgroundId,setBackgroundId]=useState('none');
