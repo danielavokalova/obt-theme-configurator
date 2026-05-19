@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@keyframes float-plane {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate(24px, -18px) rotate(4deg);
+    opacity: 0.28;
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-bg {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1, #8b5cf6, #0ea5e9);
+  background-size: 300% 300%;
+  animation: gradient-shift 12s ease infinite;
+}
+
+.plane-icon {
+  animation: float-plane 8s ease-in-out infinite;
+}
+
+.plane-icon-delay-1 {
+  animation-delay: 2s;
+}
+
+.plane-icon-delay-2 {
+  animation-delay: 4s;
+}
