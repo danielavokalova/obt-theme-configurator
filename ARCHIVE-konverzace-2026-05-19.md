@@ -1,19 +1,33 @@
 # Archiv konverzace — OBT Theme Configurator
 
 **Datum:** 19. května 2026  
+**Stav:** **UZAVŘENO** (druhá relace — veřejné nasazení + tělo formuláře)  
 **Účel:** Interaktivní konfigurátor vzhledu pro Online Booking Tool (letenky) — GOL vizáž
+
+---
+
+## Veřejná adresa (finální)
+
+**https://danielavokalova.github.io/obt-theme-configurator/**
+
+| | Lokálně (jen vy) | Veřejně (všichni) |
+|---|---|---|
+| URL | `file:///…/obt-configurator.html` | odkaz výše |
+| Repozitář | — | https://github.com/danielavokalova/obt-theme-configurator |
+
+Nasazení: GitHub Pages z větve `main` (workflow `.github/workflows/github-pages.yml`).
 
 ---
 
 ## Shrnutí požadavků
 
 1. Single-page aplikace pro live preview vzhledu OBT.
-2. **6 barevných šablon** + možnost **ruční úpravy 5 barevných rolí**.
-3. **Volitelná pozadí** (odděleně od barev) — jen když klient chce hero obrázek.
-4. Maketa podle **reálného GOL screenshotu** (bílá hlavička, oranžové akcenty, světle modro-šedé pozadí stránky).
-5. **Editace kliknutím** na oblast v náhledu (jako u šablon dříve).
+2. **6 barevných šablon** + možnost **ruční úpravy barevných rolí**.
+3. **Volitelná pozadí** (odděleně od barev).
+4. Maketa podle **reálného GOL screenshotu**.
+5. **Editace kliknutím** na oblast v náhledu.
 6. **Export JSON** pro uložení do klientského portálu / DB.
-7. **Bez nových placených aplikací** — pouze jeden HTML soubor v prohlížeči.
+7. **Bez placených služeb** — standalone HTML + volitelný Vite prototyp.
 
 ---
 
@@ -21,14 +35,14 @@
 
 | Téma | Rozhodnutí |
 |------|------------|
-| Technologie | Finálně **`obt-configurator.html`** (React + Tailwind přes CDN), ne npm/Vite pro běžné použití |
-| Vite projekt | Vytvořen dříve v `src/`, **nepovinný** — lze ignorovat |
-| Struktura barev | 5 rolí: `pageBg`, `menu`, `searchForm`, `accent`, `text` |
-| GOL default | `pageBg: #E8ECF1`, `menu: #FFFFFF`, `searchForm: #EBF8FF`, `accent: #E25813`, `text: #1A365D` |
-| Menu | Bílé (podle screenshotu), ne tmavě modrá celá hlavička |
-| Search widget | Bílá karta; spodní lišta = barva `searchForm` |
-| Pozadí default | `none` (bez obrázku) |
-| Externí fotky | Odstraněny z finální verze; pozadí = CSS/SVG |
+| Technologie | **`obt-configurator.html`** (React + Tailwind přes CDN) |
+| Vite projekt | V repozitáři, **nepovinný** pro běžné použití |
+| Struktura barev | **6 rolí:** `pageBg`, `menu`, `searchForm`, `searchFormBody`, `accent`, `text` |
+| Search widget | **Okraje** (`searchForm`) = neaktivní záložky + spodní lišta; **tělo** (`searchFormBody`) = pole From/To/Options/datumy |
+| GOL default | `pageBg: #E8ECF1`, `menu: #FFFFFF`, `searchForm: #EBF8FF`, `searchFormBody: #FFFFFF`, `accent: #E25813`, `text: #1A365D` |
+| Menu | Bílé (podle screenshotu) |
+| Pozadí default | `none` |
+| Hosting | GitHub Pages, samostatný public repo |
 
 ---
 
@@ -36,68 +50,31 @@
 
 ```
 obt-theme-configurator/
-├── obt-configurator.html      ← HLAVNÍ — otevřít v prohlížeči
+├── obt-configurator.html      ← HLAVNÍ zdroj (nasazuje se na web)
 ├── README.md
 ├── ARCHIVE-konverzace-2026-05-19.md   ← tento archiv
-└── src/                       ← volitelný Vite prototyp (npm run dev)
+├── .github/workflows/github-pages.yml
+└── src/                       ← volitelný Vite prototyp
 ```
 
 **Cesta:** `C:\Users\DanielaVokálová\obt-theme-configurator\`
 
 ---
 
-## Spuštění
+## 6 barevných rolí
 
-Dvojklik na `obt-configurator.html` nebo Soubor → Otevřít v prohlížeči.
-
----
-
-## 5 barevných rolí
-
-| Klíč | Popis na GOL webu |
-|------|-------------------|
+| Klíč | Popis |
+|------|--------|
 | `pageBg` | Pozadí stránky za kartami |
 | `menu` | Hlavička + horní navigace |
-| `searchForm` | Spodní lišta ve vyhledávacím widgetu |
-| `accent` | Logo GOL, tlačítka, aktivní záložka, odkazy |
+| `searchForm` | Okraje widgetu — neaktivní záložky, spodní lišta |
+| `searchFormBody` | Tělo widgetu — pole From, To, Options, datumy |
+| `accent` | Logo, tlačítka, aktivní záložka, odkazy |
 | `text` | Nadpisy, popisky, hodnoty polí |
 
 ---
 
-## Přednastavené šablony
-
-1. GOL Orange (default)  
-2. Ocean Breeze  
-3. Corporate Navy  
-4. Sunset Magenta  
-5. Eco Travel  
-6. Luxury Gold  
-
----
-
-## Volitelná pozadí
-
-- `none` — Bez obrázku (default)  
-- `clouds` — Mraky  
-- `palms` — Pláž  
-- `animated` — Animovaný gradient  
-
----
-
-## Prvky makety (podle screenshotu)
-
-- Logo GOL (oranžové kolečko), My reservations, Karel Novak, EN, Kč CZK  
-- Navigace: Hotels, Car rental, Packages, About us, Contact us  
-- Nadpis „Fly with us .“  
-- Záložky One way / **Return** / Multi-city + tlačítko HOTELS  
-- Pole From (Prague), To, Options, Departure/Return dates  
-- Lišta: Only direct flights, All airlines, Tolerance ±, SEARCH FLIGHTS  
-- Special offers: Singapore - Changi, 5 459 CZK, CHOOSE DATE  
-- Footer: Pay securely, © CEE Travel Systems  
-
----
-
-## Export JSON (příklad)
+## Export JSON (aktuální příklad)
 
 ```json
 {
@@ -108,34 +85,34 @@ Dvojklik na `obt-configurator.html` nebo Soubor → Otevřít v prohlížeči.
     "pageBg": "#E8ECF1",
     "menu": "#FFFFFF",
     "searchForm": "#EBF8FF",
+    "searchFormBody": "#FFFFFF",
     "accent": "#E25813",
     "text": "#1A365D"
   }
 }
 ```
 
-Tlačítko **Exportovat nastavení** → popup + `console.log` (F12).
+---
+
+## Historie iterací
+
+1. Vite + React + Tailwind, 6 témat, 4 pozadí.
+2. Standalone HTML bez npm.
+3. 5 barevných rolí + klikací editace.
+4. Úprava podle GOL screenshotu.
+5. **Veřejné nasazení** na GitHub Pages.
+6. **6. role `searchFormBody`** — oddělené tělo search formuláře od okrajů.
+7. Archivace a uzavření (tento dokument).
 
 ---
 
-## Doporučené další kroky (neprovedeno)
+## Doporučené další kroky (až budete pokračovat)
 
-1. Schválení vzhledu s klientem / produktem.  
-2. Mapování `colors` na CSS proměnné v produkčním OBT (`--obt-accent`, …).  
-3. API + DB tabulka pro `client_id`, `presetId`, `background`, `colors`.  
-4. Vložení konfigurátoru do existujícího OBT repozitáře (uživatel nedodal cestu).  
-5. Pixel-perfect doladění podle finálního screenshotu, pokud budou připomínky.
-
----
-
-## Historie iterací v konverzaci
-
-1. Vite + React + Tailwind projekt s 6 tématy a 4 pozadími.  
-2. Požadavek bez placených/nových aplikací → standalone HTML.  
-3. Přechod na 5 barevných rolí + klikací editace v náhledu.  
-4. Úprava podle screenshotu GOL (bílé menu, bílá karta, oranžové akcenty).  
-5. Archivace konverzace (tento dokument).
+1. Schválení vzhledu s klientem / produktem.
+2. Mapování `colors` na CSS proměnné v produkčním OBT.
+3. API + DB pro `client_id`, preset, `background`, `colors`.
+4. Odkaz z help portálu na veřejný configurator.
 
 ---
 
-*Archiv vytvořen agentem Cursor dle žádosti uživatele.*
+*Archiv uzavřen 19. 5. 2026 — Cursor.*
