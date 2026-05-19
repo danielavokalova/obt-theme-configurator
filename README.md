@@ -16,13 +16,14 @@ Otevřete v prohlížeči (dvojklik):
 
 Žádná instalace, žádné placené služby.
 
-## Barvy (5 rolí — jako na vašem webu)
+## Barvy (6 rolí — jako na vašem webu)
 
 | Role | GOL Orange default |
 |------|-------------------|
-| Pozadí stránky | `#DDE8F0` |
-| Menu / hlavička | `#1A365D` |
-| Search formulář | `#EBF8FF` |
+| Pozadí stránky | `#E8ECF1` |
+| Menu / hlavička | `#FFFFFF` |
+| Search formulář — okraje | `#EBF8FF` |
+| Tělo search formuláře | `#FFFFFF` |
 | Ikony a zvýraznění | `#E25813` |
 | Barva písma | `#1A365D` |
 
@@ -39,9 +40,10 @@ Otevřete v prohlížeči (dvojklik):
   "presetId": "gol-orange",
   "background": "none",
   "colors": {
-    "pageBg": "#DDE8F0",
-    "menu": "#1A365D",
+    "pageBg": "#E8ECF1",
+    "menu": "#FFFFFF",
     "searchForm": "#EBF8FF",
+    "searchFormBody": "#FFFFFF",
     "accent": "#E25813",
     "text": "#1A365D"
   }

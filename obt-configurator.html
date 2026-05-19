@@ -58,18 +58,19 @@
     const COLOR_KEYS = [
       { key: 'pageBg', label: 'Pozadí stránky', hint: 'Světle modro-šedá plocha za kartami' },
       { key: 'menu', label: 'Menu / navigace', hint: 'Pozadí hlavičky a horní lišty odkazů' },
-      { key: 'searchForm', label: 'Search formulář', hint: 'Spodní lišta ve widgetu (filtry)' },
+      { key: 'searchForm', label: 'Search formulář — okraje', hint: 'Neaktivní záložky a spodní lišta (filtry, SEARCH)' },
+      { key: 'searchFormBody', label: 'Tělo search formuláře', hint: 'Střední část s poli From, To, Options, datumy' },
       { key: 'accent', label: 'Ikony a zvýraznění', hint: 'Logo, tlačítka, aktivní záložka, odkazy' },
       { key: 'text', label: 'Barva písma', hint: 'Nadpisy, popisky polí, hodnoty' },
     ];
 
     const PRESETS = [
-      { id: 'gol-orange', name: 'GOL Orange', colors: { pageBg: '#E8ECF1', menu: '#FFFFFF', searchForm: '#EBF8FF', accent: '#E25813', text: '#1A365D' } },
-      { id: 'ocean-breeze', name: 'Ocean Breeze', colors: { pageBg: '#E0F2FE', menu: '#FFFFFF', searchForm: '#F0FDFA', accent: '#0D9488', text: '#0C4A6E' } },
-      { id: 'corporate-navy', name: 'Corporate Navy', colors: { pageBg: '#E2E8F0', menu: '#FFFFFF', searchForm: '#F1F5F9', accent: '#2563EB', text: '#1E293B' } },
-      { id: 'sunset-magenta', name: 'Sunset Magenta', colors: { pageBg: '#FAE8FF', menu: '#FFFFFF', searchForm: '#FDF4FF', accent: '#DB2777', text: '#581C87' } },
-      { id: 'eco-travel', name: 'Eco Travel', colors: { pageBg: '#ECFCCB', menu: '#FFFFFF', searchForm: '#F7FEE7', accent: '#65A30D', text: '#365314' } },
-      { id: 'luxury-gold', name: 'Luxury Gold', colors: { pageBg: '#E5E5E5', menu: '#FFFFFF', searchForm: '#FAFAFA', accent: '#CA8A04', text: '#171717' } },
+      { id: 'gol-orange', name: 'GOL Orange', colors: { pageBg: '#E8ECF1', menu: '#FFFFFF', searchForm: '#EBF8FF', searchFormBody: '#FFFFFF', accent: '#E25813', text: '#1A365D' } },
+      { id: 'ocean-breeze', name: 'Ocean Breeze', colors: { pageBg: '#E0F2FE', menu: '#FFFFFF', searchForm: '#F0FDFA', searchFormBody: '#FFFFFF', accent: '#0D9488', text: '#0C4A6E' } },
+      { id: 'corporate-navy', name: 'Corporate Navy', colors: { pageBg: '#E2E8F0', menu: '#FFFFFF', searchForm: '#F1F5F9', searchFormBody: '#FFFFFF', accent: '#2563EB', text: '#1E293B' } },
+      { id: 'sunset-magenta', name: 'Sunset Magenta', colors: { pageBg: '#FAE8FF', menu: '#FFFFFF', searchForm: '#E9D5FF', searchFormBody: '#FFFFFF', accent: '#DB2777', text: '#581C87' } },
+      { id: 'eco-travel', name: 'Eco Travel', colors: { pageBg: '#ECFCCB', menu: '#FFFFFF', searchForm: '#F7FEE7', searchFormBody: '#FFFFFF', accent: '#65A30D', text: '#365314' } },
+      { id: 'luxury-gold', name: 'Luxury Gold', colors: { pageBg: '#E5E5E5', menu: '#FFFFFF', searchForm: '#FAFAFA', searchFormBody: '#FFFFFF', accent: '#CA8A04', text: '#171717' } },
     ];
 
     const BACKGROUNDS = [
@@ -180,8 +181,8 @@
               Fly with <span className="font-semibold">us</span> .
             </h1>
 
-            {/* Search widget — white card */}
-            <div className="mt-4 overflow-hidden rounded-lg bg-white shadow-lg">
+            {/* Search widget */}
+            <div className="mt-4 overflow-hidden rounded-lg shadow-lg">
               {/* Tabs row */}
               <div className="flex items-stretch border-b border-slate-200">
                 <div className="flex flex-1">
@@ -191,7 +192,7 @@
                       <button key={tab} type="button"
                         className="relative flex flex-1 items-center justify-center gap-1.5 px-3 py-3 text-xs font-semibold sm:text-sm"
                         style={{
-                          backgroundColor: active ? '#fff' : colors.searchForm,
+                          backgroundColor: active ? colors.searchFormBody : colors.searchForm,
                           color: colors.text,
                           borderTop: active ? `3px solid ${colors.accent}` : '3px solid transparent',
                         }}>
@@ -209,8 +210,10 @@
                 </Zone>
               </div>
 
-              {/* Fields */}
-              <div className="grid gap-4 p-4 sm:grid-cols-12 sm:p-5">
+              {/* Fields — tělo formuláře */}
+              <Zone id="searchFormBody" activeKey={activeKey} onSelect={onSelectZone}
+                className="grid gap-4 p-4 sm:grid-cols-12 sm:p-5"
+                style={{backgroundColor:colors.searchFormBody}} title="Tělo search formuláře (pole From, To, datumy)">
                 <div className="sm:col-span-3">
                   <div className="text-[11px] font-semibold" style={{color:colors.text}}>From</div>
                   <div className="mt-0.5 text-2xl font-bold leading-tight" style={{color:colors.text}}>Prague</div>
@@ -222,7 +225,7 @@
                 </div>
                 <div className="sm:col-span-3">
                   <div className="text-[11px] font-semibold" style={{color:colors.text}}>Options</div>
-                  <div className="mt-1 flex items-center justify-between rounded border border-slate-200 bg-white px-2 py-2 text-sm font-medium" style={{color:colors.text}}>
+                  <div className="mt-1 flex items-center justify-between rounded border border-slate-200/80 px-2 py-2 text-sm font-medium" style={{color:colors.text}}>
                     1 passenger ECONOMY <span className="text-slate-400">▾</span>
                   </div>
                 </div>
@@ -236,12 +239,12 @@
                     </div>
                   ))}
                 </div>
-              </div>
+              </Zone>
 
               {/* Bottom action bar */}
               <Zone id="searchForm" activeKey={activeKey} onSelect={onSelectZone}
                 className="flex flex-wrap items-center gap-3 border-t border-slate-200/60 px-4 py-3 sm:px-5"
-                style={{backgroundColor:colors.searchForm}} title="Spodní lišta search formuláře">
+                style={{backgroundColor:colors.searchForm}} title="Search formulář — okraje (spodní lišta)">
                 <label className="flex items-center gap-2 text-xs font-medium" style={{color:colors.text}}>
                   <input type="checkbox" className="h-4 w-4 rounded border-2" style={{accentColor:colors.accent,borderColor:colors.accent}} />
                   Only direct flights
@@ -305,7 +308,7 @@
 
     function App() {
       const def = PRESETS.find(p=>p.id==='gol-orange');
-      const [colors,setColors]=useState({...def.colors});
+      const [colors,setColors]=useState({searchFormBody:'#FFFFFF',...def.colors});
       const [presetId,setPresetId]=useState('gol-orange');
       const [customized,setCustomized]=useState(false);
       const [backgroundId,setBackgroundId]=useState('none');
@@ -338,7 +341,7 @@
                   {PRESETS.map(p=>(
                     <button key={p.id} type="button" onClick={()=>applyPreset(p.id)}
                       className={`rounded-lg border px-2 py-1.5 text-left text-[11px] ${presetId===p.id&&!customized?'border-slate-900 bg-slate-50 font-semibold':'border-slate-200'}`}>
-                      <span className="mb-0.5 flex gap-0.5">{['accent','text','searchForm','pageBg'].map(k=><span key={k} className="h-2.5 w-2.5 rounded-full border border-white" style={{backgroundColor:p.colors[k]}}/>)}</span>
+                      <span className="mb-0.5 flex gap-0.5">{['accent','text','searchForm','searchFormBody','pageBg'].map(k=><span key={k} className="h-2.5 w-2.5 rounded-full border border-white" style={{backgroundColor:p.colors[k]}}/>)}</span>
                       {p.name}
                     </button>
                   ))}
