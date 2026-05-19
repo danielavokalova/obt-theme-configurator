@@ -20,7 +20,7 @@ Otevřete v prohlížeči (dvojklik):
 
 | Role | GOL Orange default |
 |------|-------------------|
-| Pozadí stránky | `#E8ECF1` |
+| Pozadí stránky | `#EEF3F6` |
 | Menu / hlavička | `#FFFFFF` |
 | Search formulář — okraje | `#EBF8FF` |
 | Tělo search formuláře | `#FFFFFF` |
@@ -41,7 +41,7 @@ Otevřete v prohlížeči (dvojklik):
   "presetId": "gol-orange",
   "background": "none",
   "colors": {
-    "pageBg": "#E8ECF1",
+    "pageBg": "#EEF3F6",
     "menu": "#FFFFFF",
     "searchForm": "#EBF8FF",
     "searchFormBody": "#FFFFFF",
