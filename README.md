@@ -31,7 +31,7 @@ Otevřete v prohlížeči (dvojklik):
 - Klik na oblast v náhledu → úprava v levém panelu
 - Color picker + hex pole
 - 6 přednastavených šablon
-- Pozadí (hero) je volitelné, odděleně
+- Pozadí (hero) je volitelné, odděleně — při výběru obrázku pokrývá celý náhled (barva „Pozadí stránky“ se v náhledu neukáže)
 
 ## Export JSON
 

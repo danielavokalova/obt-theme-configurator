@@ -25,6 +25,7 @@
     .plane-icon { animation: float-plane 9s ease-in-out infinite; }
     .plane-d1 { animation-delay: 2.5s; }
     .bg-clouds {
+      position: relative;
       background: linear-gradient(180deg, #9ec9e8 0%, #d4ebf7 50%, #eef6fb 100%);
     }
     .bg-clouds::after {
@@ -34,6 +35,7 @@
       background-size: cover; background-position: center 40%;
     }
     .bg-palms {
+      position: relative;
       background: linear-gradient(160deg, #0e7490, #2dd4bf 45%, #fcd34d 90%);
     }
     .bg-palms::after {
@@ -108,7 +110,7 @@
     function BackgroundLayer({ bg }) {
       if (bg.type==='none') return null;
       if (bg.type==='animated') return (
-        <div className="animated-bg absolute inset-0 opacity-90">
+        <div className="animated-bg absolute inset-0">
           <IconPlane color="rgba(255,255,255,.25)" className="plane-icon absolute left-[12%] top-[25%] w-12 h-12" />
           <IconPlane color="rgba(255,255,255,.18)" className="plane-icon plane-d1 absolute right-[18%] top-[40%] w-9 h-9" />
         </div>
@@ -142,10 +144,10 @@
       const tripTabs = ['One way','Return','Multi-city'];
 
       return (
-        <div className="relative flex min-h-[720px] flex-1 flex-col overflow-hidden rounded-xl border border-slate-300 bg-white shadow-inner">
-          <Zone id="pageBg" activeKey={activeKey} onSelect={onSelectZone} className="absolute inset-0" style={{backgroundColor:colors.pageBg}} title="Pozadí stránky">
+        <div className={`relative flex min-h-[720px] flex-1 flex-col overflow-hidden rounded-xl border border-slate-300 shadow-inner ${background.type==='none'?'bg-white':''}`}>
+          <Zone id="pageBg" activeKey={activeKey} onSelect={onSelectZone} className="absolute inset-0" style={{backgroundColor:background.type==='none'?colors.pageBg:'transparent'}} title="Pozadí stránky">
             {background.type!=='none' && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[108px] overflow-hidden opacity-85">
+              <div className="pointer-events-none absolute inset-0 overflow-hidden">
                 <BackgroundLayer bg={background} />
               </div>
             )}
